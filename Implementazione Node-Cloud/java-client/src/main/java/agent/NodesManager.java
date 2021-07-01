@@ -33,7 +33,7 @@ public class NodesManager {
 		client = WebClient.create("http://localhost:1880");
 		
 		nodes = new HashMap<String, Node>();
-		broker = "tcp://localhost:1883";
+		broker = "tcp://mqtt.eclipseprojects.io:1883";
 		
 		subscribeNodeUpdateTopic();
 		subscribeSensorUpdateTopic();
