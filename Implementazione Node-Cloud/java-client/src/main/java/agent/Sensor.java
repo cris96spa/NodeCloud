@@ -28,7 +28,7 @@ import util.InvalidSampleTimeException;
 import util.InvalidWindowException;
 
 /**
- * A Sensor measure a context
+ * A Sensor perform a measure of a given a context
  * @author Cristian
  *
  */
@@ -67,6 +67,9 @@ public class Sensor implements Runnable{
 		setBaseSamplesValue();
 	}
 	
+	/**
+	 * Allow to set the mean value of the Sample distribution.
+	 */
 	private void setBaseSamplesValue() {
 		Random rand = new Random();
 		
@@ -81,6 +84,9 @@ public class Sensor implements Runnable{
 		}
 	}
 	
+	/**
+	 * Reset the mean value of the Sample distribution.
+	 */
 	private void resetBaseSamplesValue() {
 		Random rand = new Random();
 		if(rand.nextInt(100) == rand.nextInt(100)) {
@@ -196,7 +202,7 @@ public class Sensor implements Runnable{
 	}
 	
 	/**
-	 * Set if Sensor is available
+	 * Set Sensor availability
 	 * @param available
 	 */
 	public void setAvailable(boolean available) {
@@ -326,6 +332,9 @@ public class Sensor implements Runnable{
 		return new Sample(this.code, sampleCode, baseValue, date);
 	}
 	
+	/**
+	 * Custom function to randomize the sampling process
+	 */
 	private void calculateBaseValue() {
 		resetBaseSamplesValue();
 		Random rand = new Random();
@@ -437,14 +446,24 @@ public class Sensor implements Runnable{
 			myThread.start();
 	}
 	
+	/**
+	 * Check whether or not the thread has been interrupted 
+	 * @return
+	 */
 	public boolean isInterrupted() {
 		return interrupted;
 	}
 	
+	/**
+	 * Stop the thread
+	 */
 	public void interrupt() {
 		interrupted = true;
 	}
 	
+	/**
+	 * Body of the thread
+	 */
 	public void run() {
 		while(!interrupted) {
 			Sample sample = generateSample();
@@ -502,6 +521,11 @@ public class Sensor implements Runnable{
 		return sensorCode + Constants.CODE_GENERATOR.format(new Date());
 	}
 	
+	/**
+	 * Build a Java object from JSON
+	 * @param jsonString
+	 * @return
+	 */
 	public static Sensor fromJSON(String jsonString) {
 		Sensor sensor = new Sensor();
 		JsonObject jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
@@ -526,6 +550,10 @@ public class Sensor implements Runnable{
 		return sensor;
 	}
 	
+	/**
+	 * Convert the Java Object to JSON
+	 * @return
+	 */
 	public String toJson() {
 		Gson g = new Gson();
 		String jsonString = g.toJson(this);
@@ -547,8 +575,12 @@ public class Sensor implements Runnable{
 		return jsonObject.toString();
 	}
 	
+	/**
+	 * Evaluate which are key properties of the sensor.
+	 * @param key
+	 * @return
+	 */
 	private static boolean isKeyProperty(String key) {
-		
 		return key.equalsIgnoreCase("code") || key.equalsIgnoreCase("nodeId")
 				|| key.equalsIgnoreCase("sampleTime") || key.equalsIgnoreCase("precision")
 				|| key.equalsIgnoreCase("isAvailable") || key.equalsIgnoreCase("context");

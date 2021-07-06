@@ -270,6 +270,11 @@ public class Node implements Runnable{
 		}
 	}
 	
+	/**
+	 * Find a sensor by its sensor code.
+	 * @param sensorCode the sensor code of the sensor to be found.
+	 * @return the sensor with the given sensorCode.
+	 */
 	public Sensor findSensorByCode(String code) {
 		boolean found = false;
 		int i = 0;
@@ -287,6 +292,11 @@ public class Node implements Runnable{
 		
 	}
 	
+	/**
+	 * Build a Java object from JSON
+	 * @param jsonString
+	 * @return
+	 */
 	public static Node fromJSON(String jsonString) {
 		Node node = new Node();
 		JsonObject jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
@@ -324,6 +334,10 @@ public class Node implements Runnable{
 		return node;
 	}
 	
+	/**
+	 * Convert the Java Object to JSON
+	 * @return
+	 */
 	public String toJson() {
 		Gson g = new Gson();
 		String jsonString = g.toJson(this);
@@ -367,6 +381,11 @@ public class Node implements Runnable{
 		return jsonObject.toString();
 	}
 	
+	/**
+	 * Evaluate which are key properties of the node.
+	 * @param key
+	 * @return
+	 */
 	private static boolean isKeyProperty(String key) {
 		
 		return key.equalsIgnoreCase("_id") || key.equalsIgnoreCase("nodeId")
@@ -391,7 +410,9 @@ public class Node implements Runnable{
 			myThread.start();
 	}
 	
-	
+	/**
+	 * Body of the thread
+	 */
 	public void run() {
 		if(available) {
 			for(Sensor sensor : sensors) {
@@ -401,10 +422,17 @@ public class Node implements Runnable{
 		}
 	}
 	
+	/**
+	 * Check whether or not the thread has been interrupted 
+	 * @return
+	 */
 	public boolean isInterrupted() {
 		return myThread.isInterrupted();
 	}
 
+	/**
+	 * Stop the thread of each embedded sensor.
+	 */
 	public void interrupt() {
 		for(Sensor sensor : sensors) {
 			sensor.interrupt();

@@ -19,14 +19,16 @@ import com.google.gson.JsonParser;
 
 
 /**
- * A NodeManager manage a single Node, its sensors and sensors samples
- * @author Cristian
- *
+ * A NodeManager manage each single Node, its sensors and the 
+ * samples that are generated.
+ * @author Daniele Carta
+ * @author Cristian C. Spagnuolo
  */
 public class NodesManager {
 	
 	/**
-	 * Create a NodesManager
+	 * Instantiate a NodesManager object.
+	 * It is implemented with a Singleton pattern.
 	 */
 	private NodesManager() {
 		
@@ -42,7 +44,10 @@ public class NodesManager {
 		doGetSensors();
 	}
 	
-	
+	/**
+	 * Subcribe the MQTT client to the topic for receiving
+	 * command for nodes.
+	 */
 	private void subscribeNodeUpdateTopic() {
 		MqttClient client;
 		try {
@@ -85,6 +90,10 @@ public class NodesManager {
 		}		
 	}
 	
+	/**
+	 * Subcribe the MQTT client to the topic for receiving
+	 * command for sensors.
+	 */
 	private void subscribeSensorUpdateTopic() {
 		MqttClient client;
 		try {
@@ -128,6 +137,12 @@ public class NodesManager {
 		}		
 	}
 	
+	/**
+	 * Subcribe the MQTT client to the topic for receiving
+	 * update on the availability status of sensors.
+	 * It is possible to change the availability status of a sensor, without modifying
+	 * other information. It is redundant but increases usability.
+	 */
 	private void subscribeSensorAvailabilityTopic() {
 		MqttClient client;
 		try {
@@ -181,6 +196,11 @@ public class NodesManager {
 				
 	}
 
+	/**
+	 * Perform a get request to the Node-Red endpoint which mediates
+	 * the access to the database in order to retrieve the collection
+	 * of nodes.
+	 */
 	private void doGetNodes() {
 		client.reset();
 		client.accept("application/json").type("application/json");
@@ -189,6 +209,11 @@ public class NodesManager {
 		fromJsonNodes(string);
 	}
 	
+	/**
+	 * Perform a get request to the Node-Red endpoint which mediates
+	 * the access to the database in order to retrieve the collection
+	 * of sensors.
+	 */
 	private void doGetSensors() {
 		client.reset();
 		client.accept("application/json").type("application/json");
@@ -197,6 +222,10 @@ public class NodesManager {
 		fromJsonSensors(string);
 	}
 	
+/**
+ * Converts a JSON collection of nodes into a JAVA collection of node objects
+ * @param jsonString the JSON collection of nodes
+ */
 	private void fromJsonNodes(String jsonString) {
 		JsonParser parser = new JsonParser();
 		JsonArray jsonArray = null;
@@ -214,6 +243,10 @@ public class NodesManager {
 		}
 	}
 	
+	/**
+	 * Converts a JSON collection of nodes into a JAVA collection of sensor objects
+	 * @param jsonString the JSON collection of sensors
+	 */
 	private void fromJsonSensors(String jsonString) {
 		JsonParser parser = new JsonParser();
 		JsonArray jsonArray = null;
@@ -231,6 +264,11 @@ public class NodesManager {
 		}
 	}
 
+	/**
+	 * Implementation of the method to implement a Singleton pattern
+	 * for NodeManager.
+	 * @return the instance of the NodeManager.
+	 */
 	public static NodesManager getInstance() {
 		if(instance == null) {
 			instance = new NodesManager();
@@ -238,20 +276,32 @@ public class NodesManager {
 		return instance;
 	}
 	
+	/**
+	 * Get the Map collection of nodes.
+	 * @return the Map<NodeId, Node> collection of nodes.
+	 */
 	public Map<String, Node> getNodes() {
 		return nodes;
 	}
 
+	/**
+	 * Set the Map collection of nodes.
+	 * @param nodes the Map<NodeId, Node> collection of nodes to be set.
+	 */
 	public void setNodes(Map<String, Node> nodes) {
 		this.nodes = nodes;
 	}
 
+	/**
+	 * Get the web client.
+	 * @return the web client instance variable.
+	 */
 	public WebClient getClient() {
 		return client;
 	}
 
 	/**
-	 * Start Node execution thread
+	 * Start the thread associated to each node.
 	 */
 	public void start() {
 		Iterator<String> iterator = nodes.keySet().iterator();
@@ -262,16 +312,28 @@ public class NodesManager {
 		}
 	}
 	
+	/**
+	 * Add a node to the Map collection.
+	 * @param node to be added to the Map.
+	 */
 	public void putNode(Node node) {
 		if(node != null && ! nodes.containsKey(node.getNodeId()))
 			nodes.put(node.getNodeId(), node);
 	}
 	
+	/**
+	 * Remove a node from the Map collection.
+	 * @param node the node to be removed.
+	 */
 	public void removeNode(Node node) {
 		if(node != null && nodes.containsKey(node.getNodeId()))
 			nodes.remove(node.getNodeId());
 	}
 	
+	/**
+	 * Add a Sensor to the collection of the associated node.
+	 * @param sensor the sensor to be added.
+	 */
 	private void putSensor(Sensor sensor) {
 		if(sensor != null) {
 			Node node = nodes.get(sensor.getNodeId());
@@ -281,6 +343,12 @@ public class NodesManager {
 		}
 	}
 	
+	/**
+	 * Publish the input sample on the correct MQTT topic.
+	 * This method is called by the thread associated to the sensor
+	 * that generates the given sample.
+	 * @param sample the sample to be included in the payload of the MQTT publish.
+	 */
 	public void publishSample(Sample sample) {
 		if(sample != null) {
 			String topic = "nodes/sensors/samples";
@@ -309,6 +377,11 @@ public class NodesManager {
 			}
 		}
 
+	/**
+	 * Find a sensor by its sensor code.
+	 * @param sensorCode the sensor code of the sensor to be found.
+	 * @return the sensor with the given sensorCode.
+	 */
 	private Sensor findSensorByCode(String sensorCode) {
 		Set<String> keySet = nodes.keySet();
 		Sensor sensor = null;
