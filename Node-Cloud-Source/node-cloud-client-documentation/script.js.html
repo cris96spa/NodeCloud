@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * Management of the web client logic.
  * @author Daniele Carta
  * @author Cristian C. Spagnuolo
@@ -328,7 +356,7 @@ function doGetNodes() {
 	req.setRequestHeader('Cache-Control', 'no-cache');
 
 	req.onreadystatechange = function () {
-		if (this.readyState == 4 && this.status == 200) {
+		if (this.readyState == 4 &amp;&amp; this.status == 200) {
 			nodesPayload = JSON.parse(req.responseText);
 			mapNodes();
 			doGetSensors();
@@ -347,7 +375,7 @@ function doGetSensors() {
 	req.setRequestHeader('Cache-Control', 'no-cache');
 
 	req.onreadystatechange = async function () {
-		if (this.readyState == 4 && this.status == 200) {
+		if (this.readyState == 4 &amp;&amp; this.status == 200) {
 			sensorsPayload = JSON.parse(req.responseText);
 			mapSensors();
 			await addSensorsToNodes();
@@ -368,7 +396,7 @@ function doGetSamples() {
 	req.setRequestHeader('Cache-Control', 'no-cache');
 
 	req.onreadystatechange = async function () {
-		if (this.readyState == 4 && this.status == 200) {
+		if (this.readyState == 4 &amp;&amp; this.status == 200) {
 			samplesPayload = JSON.parse(req.responseText);
 			updateDashboardInfo();
 			await createDashboardPlot();
@@ -409,7 +437,7 @@ function wsConnect() {
  * @param {*} msg the message to be sent.
  */
 function sendMessage(msg) {
-	if (ws && ws.readyState == WebSocket.OPEN) {
+	if (ws &amp;&amp; ws.readyState == WebSocket.OPEN) {
 		ws.send(JSON.stringify(msg));
 	} else {
 		console.log('Waiting for ws connection on:' + wsUri);
@@ -462,8 +490,8 @@ async function sampleReceived(sample) {
 	var id = sensor.code + 'total-samples';
 	var box = document.getElementById(id);
 	if (
-		sensor.samples &&
-		sensor.samples.length == 1 &&
+		sensor.samples &amp;&amp;
+		sensor.samples.length == 1 &amp;&amp;
 		(box != null || box != undefined)
 	) {
 		swapToSensor(sensor);
@@ -497,7 +525,7 @@ function createVM() {
 				var len = this.nodes.length;
 				var found = false;
 				var i = 0;
-				while (!found && i < len) {
+				while (!found &amp;&amp; i &lt; len) {
 					if (this.nodes[i].nodeId == nodeId) found = true;
 					else i++;
 				}
@@ -551,7 +579,7 @@ function createVM() {
 				var len = this.sensors.length;
 				var found = false;
 				var i = 0;
-				while (!found && i < len) {
+				while (!found &amp;&amp; i &lt; len) {
 					if (this.sensors[i].code == code) found = true;
 					else i++;
 				}
@@ -572,7 +600,7 @@ function createVM() {
 				let sensor = this.sensors[index];
 				let sampleTime = parseInt(sensor.sampleTime);
 				let enabled = false;
-				if (sampleTime < 1000) {
+				if (sampleTime &lt; 1000) {
 					sensor.isNotValid =
 						'Invalid sample time. Min = 1000. Up arrow to fix';
 				} else if (sampleTime > 86400000) {
@@ -615,7 +643,7 @@ function createVM() {
 function swapToManageNodes() {
 	nodeFormVm.emptyNodes();
 	var node;
-	for (var i = 0; i < nodesPayload.length; i++) {
+	for (var i = 0; i &lt; nodesPayload.length; i++) {
 		node = JSON.stringify(nodesPayload[i]);
 		node = JSON.parse(node);
 		delete node._id;
@@ -637,15 +665,15 @@ function generateId() {
 	var date = new Date();
 	return (
 		date.getFullYear() +
-		(date.getMonth() + 1 < 9
+		(date.getMonth() + 1 &lt; 9
 			? '0' + (date.getMonth() + 1)
 			: date.getMonth() + 1) +
-		(date.getDate() < 9 ? '0' + date.getDate() : date.getDate()) +
-		(date.getHours() < 9 ? '0' + date.getHours() : date.getHours()) +
-		(date.getMinutes() < 9
+		(date.getDate() &lt; 9 ? '0' + date.getDate() : date.getDate()) +
+		(date.getHours() &lt; 9 ? '0' + date.getHours() : date.getHours()) +
+		(date.getMinutes() &lt; 9
 			? '0' + date.getMinutes()
 			: date.getMinutes() +
-			  (date.getSeconds() < 9
+			  (date.getSeconds() &lt; 9
 					? '0' + date.getSeconds()
 					: date.getSeconds()))
 	);
@@ -668,7 +696,7 @@ function isSensorKeyProperty(property) {
 function swapToManageSensors() {
 	sensorFormVm.emptySensors();
 	var sensor;
-	for (let i = 0; i < sensorsPayload.length; i++) {
+	for (let i = 0; i &lt; sensorsPayload.length; i++) {
 		sensor = JSON.stringify(sensorsPayload[i]);
 		sensor = JSON.parse(sensor);
 		delete sensor._id;
@@ -698,9 +726,9 @@ function msToTime(duration) {
 		minutes = Math.floor((duration / (1000 * 60)) % 60),
 		hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
-	hours = hours < 10 ? '0' + hours : hours;
-	minutes = minutes < 10 ? '0' + minutes : minutes;
-	seconds = seconds < 10 ? '0' + seconds : seconds;
+	hours = hours &lt; 10 ? '0' + hours : hours;
+	minutes = minutes &lt; 10 ? '0' + minutes : minutes;
+	seconds = seconds &lt; 10 ? '0' + seconds : seconds;
 
 	return hours + ':' + minutes + ':' + seconds;
 }
@@ -715,7 +743,7 @@ function msToTime(duration) {
  */
 function addSensorsToNodes() {
 	var node;
-	for (let i = 0; i < sensorsPayload.length; i++) {
+	for (let i = 0; i &lt; sensorsPayload.length; i++) {
 		node = nodes[sensorsPayload[i].nodeId];
 		node.sensors = getNodeSensors(sensorsPayload[i].nodeId);
 	}
@@ -728,7 +756,7 @@ function addSensorsToNodes() {
  */
 function getNodeSensors(nodeId) {
 	var sensors = [];
-	for (let i = 0; i < sensorsPayload.length; i++) {
+	for (let i = 0; i &lt; sensorsPayload.length; i++) {
 		if (sensorsPayload[i].nodeId == nodeId) {
 			sensors.push(sensorsPayload[i]);
 		}
@@ -741,9 +769,9 @@ function getNodeSensors(nodeId) {
  * to it.
  */
 function addSamplesToSensor() {
-	for (var i = 0; i < nodesPayload.length; i++) {
+	for (var i = 0; i &lt; nodesPayload.length; i++) {
 		if (nodesPayload[i].sensors) {
-			for (let j = 0; j < nodesPayload[i].sensors.length; j++) {
+			for (let j = 0; j &lt; nodesPayload[i].sensors.length; j++) {
 				var samples = getSensorSamples(nodesPayload[i].sensors[j].code);
 				nodesPayload[i].sensors[j].samples = samples;
 			}
@@ -759,7 +787,7 @@ function addSamplesToSensor() {
 function getSensorSamples(code) {
 	var samples = [];
 	var j = 0;
-	for (let i = 0; i < samplesPayload.length; i++) {
+	for (let i = 0; i &lt; samplesPayload.length; i++) {
 		if (samplesPayload[i].sensorCode == code) {
 			samples[j] = samplesPayload[i];
 			j++;
@@ -774,7 +802,7 @@ function getSensorSamples(code) {
 function mapNodes() {
 	nodes = {};
 	var node;
-	for (let i = 0; i < nodesPayload.length; i++) {
+	for (let i = 0; i &lt; nodesPayload.length; i++) {
 		node = nodesPayload[i];
 		if (node.nodeId) nodes[node.nodeId] = node;
 	}
@@ -786,7 +814,7 @@ function mapNodes() {
 function mapSensors() {
 	sensors = {};
 	var sensor;
-	for (let i = 0; i < sensorsPayload.length; i++) {
+	for (let i = 0; i &lt; sensorsPayload.length; i++) {
 		sensor = sensorsPayload[i];
 		if (sensor.code) sensors[sensor.code] = sensor;
 	}
@@ -819,7 +847,7 @@ function addSample(sample) {
  * Create the node scroll bar.
  */
 function createNodeScrollBar() {
-	for (let i = 0; i < nodesPayload.length; i++) {
+	for (let i = 0; i &lt; nodesPayload.length; i++) {
 		createNodeElement(nodesPayload[i]);
 	}
 }
@@ -831,7 +859,7 @@ function removeNodeScrollBar() {
 	const ul = document.getElementById('index-scrollbar-ul');
 	if (document.getElementById('nodes-label-sidebar'))
 		ul.removeChild(document.getElementById('nodes-label-sidebar'));
-	for (let i = 0; i < nodesPayload.length; i++) {
+	for (let i = 0; i &lt; nodesPayload.length; i++) {
 		if (document.getElementById(nodesPayload[i].nodeId + 'li'))
 			ul.removeChild(
 				document.getElementById(nodesPayload[i].nodeId + 'li')
@@ -864,7 +892,7 @@ function createNodeElement(node) {
 	listElement.append(link);
 	ul.append(listElement);
 	if (node.sensors) {
-		for (let i = 0; i < node.sensors.length; i++) {
+		for (let i = 0; i &lt; node.sensors.length; i++) {
 			createSensorElement(node.sensors[i], listElement);
 		}
 	}
@@ -950,7 +978,7 @@ function swapToSensor(sensor) {
 
 	sensorFrame.append(row1);
 
-	if (sensor.samples != null && sensor.samples.length > 0) {
+	if (sensor.samples != null &amp;&amp; sensor.samples.length > 0) {
 		sensorFrame.append(row2);
 		createSamplesLinePlotBox(sensor, row2);
 	}
@@ -1329,7 +1357,7 @@ function updateAvailableBox(sensor) {
 	var idText = sensor.code + 'available-text';
 	var textBox = document.getElementById(idText);
 	var box = document.getElementById(id);
-	if (box && textBox) {
+	if (box &amp;&amp; textBox) {
 		box.removeChild(box.childNodes[1]);
 		var span = document.createElement('span');
 		if (sensor.isAvailable) {
@@ -1443,7 +1471,7 @@ function updateLastSampleBox(sensor) {
 	var sample = findLastSample(sensor.samples);
 	var box = document.getElementById(id);
 	if (
-		(box != null || box != undefined) &&
+		(box != null || box != undefined) &amp;&amp;
 		(sample != null || sample != undefined)
 	) {
 		var value = Math.round(sample.value * 100) / 100;
@@ -1491,9 +1519,9 @@ function evaluateContext(context) {
  */
 function findLastSample(samples) {
 	var sample = null;
-	if (samples != null && samples.length > 0) {
+	if (samples != null &amp;&amp; samples.length > 0) {
 		sample = samples[0];
-		for (var i = 1; i < samples.length; i++) {
+		for (var i = 1; i &lt; samples.length; i++) {
 			if (new Date(samples[i].date) > new Date(sample.date)) {
 				sample = samples[i];
 			}
@@ -1557,7 +1585,7 @@ function updateLastSampleTimeBox(sensor) {
 	var sample = findLastSample(sensor.samples);
 	var box = document.getElementById(id);
 	if (
-		(box != null || box != undefined) &&
+		(box != null || box != undefined) &amp;&amp;
 		(sample != null || sample != undefined)
 	) {
 		box.innerText = sample.date;
@@ -1694,17 +1722,17 @@ function updateSamplesAverageBox(sensor) {
 function calculateSamplesAverage(samples, alpha) {
 	var average = 0;
 
-	if (samples != null && samples.length > 0) {
+	if (samples != null &amp;&amp; samples.length > 0) {
 		var len = samples.length;
 		var sum = 0;
-		if (len > 1 && len < 51) {
-			for (var i = 0; i < len - 1; i++) {
+		if (len > 1 &amp;&amp; len &lt; 51) {
+			for (var i = 0; i &lt; len - 1; i++) {
 				sum = sum * (1 - alpha) + samples[i].value * alpha;
 			}
 			average = sum + alpha * samples[len - 1].value;
 			return Math.round(average * 100) / 100;
 		} else if (len > 50) {
-			for (var i = len - 50; i < len - 1; i++) {
+			for (var i = len - 50; i &lt; len - 1; i++) {
 				sum = sum * (1 - alpha) + samples[i].value * alpha;
 			}
 			average = sum + alpha * samples[len - 1].value;
@@ -1918,9 +1946,9 @@ function updateSamplesLinePlotBox(sensor) {
  */
 function getSamplesTime(samples) {
 	var samplesTime = [];
-	if (samples != null && samples.length > 0) {
+	if (samples != null &amp;&amp; samples.length > 0) {
 		var len = samples.length;
-		for (var i = 0; i < len; i++) {
+		for (var i = 0; i &lt; len; i++) {
 			var date = new Date(samples[i].date);
 			samplesTime.push(date);
 		}
@@ -1935,9 +1963,9 @@ function getSamplesTime(samples) {
  */
 function getSamplesValue(samples) {
 	var samplesValue = [];
-	if (samples != null && samples.length > 0) {
+	if (samples != null &amp;&amp; samples.length > 0) {
 		var len = samples.length;
-		for (var i = 0; i < len; i++) {
+		for (var i = 0; i &lt; len; i++) {
 			samplesValue.push(Math.round(samples[i].value * 100) / 100);
 		}
 	}
@@ -2025,7 +2053,7 @@ function countNodes() {
 function countAvailableNodes() {
 	var availableNodes = 0;
 	if (nodesPayload != null) {
-		for (var i = 0; i < nodesPayload.length; i++) {
+		for (var i = 0; i &lt; nodesPayload.length; i++) {
 			if (nodesPayload[i].isAvailable) {
 				availableNodes++;
 			}
@@ -2041,7 +2069,7 @@ function countAvailableNodes() {
 function countSensors() {
 	var totalSensors = 0;
 	if (nodesPayload != null) {
-		for (var i = 0; i < nodesPayload.length; i++) {
+		for (var i = 0; i &lt; nodesPayload.length; i++) {
 			if (nodesPayload[i].sensors != null) {
 				totalSensors += nodesPayload[i].sensors.length;
 			}
@@ -2057,9 +2085,9 @@ function countSensors() {
 function countAvailableSensors() {
 	var availableSensors = 0;
 	if (nodesPayload != null) {
-		for (var i = 0; i < nodesPayload.length; i++) {
+		for (var i = 0; i &lt; nodesPayload.length; i++) {
 			if (nodesPayload[i].sensors != null) {
-				for (var j = 0; j < nodesPayload[i].sensors.length; j++) {
+				for (var j = 0; j &lt; nodesPayload[i].sensors.length; j++) {
 					if (nodesPayload[i].sensors[j].isAvailable) {
 						availableSensors++;
 					}
@@ -2196,7 +2224,7 @@ async function createDashboardNodesPlot() {
 function getRandomColor() {
 	var letters = '0123456789ABCDEF'.split('');
 	var color = '#';
-	for (var i = 0; i < 6; i++) {
+	for (var i = 0; i &lt; 6; i++) {
 		color += letters[Math.floor(Math.random() * 16)];
 	}
 	return color;
@@ -2208,8 +2236,8 @@ function getRandomColor() {
  */
 function getSensorsBackgroundColors() {
 	var backgroundColors = [];
-	for (var i = 0; i < nodesPayload.length; i++) {
-		for (var j = 0; j < nodesPayload[i].sensors.length; j++) {
+	for (var i = 0; i &lt; nodesPayload.length; i++) {
+		for (var j = 0; j &lt; nodesPayload[i].sensors.length; j++) {
 			backgroundColors.push(getRandomColor());
 		}
 	}
@@ -2222,7 +2250,7 @@ function getSensorsBackgroundColors() {
  */
 function getNodesBackgroundColors() {
 	var backgroundColors = [];
-	for (var i = 0; i < nodesPayload.length; i++) {
+	for (var i = 0; i &lt; nodesPayload.length; i++) {
 		backgroundColors.push(getRandomColor());
 	}
 	return backgroundColors;
@@ -2234,9 +2262,9 @@ function getNodesBackgroundColors() {
  */
 function getSensorsCode() {
 	var sensorsCode = [];
-	for (var i = 0; i < nodesPayload.length; i++) {
+	for (var i = 0; i &lt; nodesPayload.length; i++) {
 		if (nodesPayload[i].sensors) {
-			for (var j = 0; j < nodesPayload[i].sensors.length; j++) {
+			for (var j = 0; j &lt; nodesPayload[i].sensors.length; j++) {
 				sensorsCode.push(nodesPayload[i].sensors[j].code);
 			}
 		}
@@ -2250,7 +2278,7 @@ function getSensorsCode() {
  */
 function getNodesName() {
 	var nodesName = [];
-	for (var i = 0; i < nodesPayload.length; i++) {
+	for (var i = 0; i &lt; nodesPayload.length; i++) {
 		nodesName.push(nodesPayload[i].name);
 	}
 	return nodesName;
@@ -2262,9 +2290,9 @@ function getNodesName() {
  */
 function getTotalSamplesFromSensors() {
 	var totalSamples = [];
-	for (var i = 0; i < nodesPayload.length; i++) {
+	for (var i = 0; i &lt; nodesPayload.length; i++) {
 		if (nodesPayload[i].sensors) {
-			for (var j = 0; j < nodesPayload[i].sensors.length; j++) {
+			for (var j = 0; j &lt; nodesPayload[i].sensors.length; j++) {
 				totalSamples.push(
 					nodesPayload[i].sensors[j].samples != null
 						? nodesPayload[i].sensors[j].samples.length
@@ -2283,9 +2311,9 @@ function getTotalSamplesFromSensors() {
 function getTotalSamplesFromNodes() {
 	var totalSamples = [];
 	var sum = 0;
-	for (var i = 0; i < nodesPayload.length; i++) {
+	for (var i = 0; i &lt; nodesPayload.length; i++) {
 		if (nodesPayload[i].sensors) {
-			for (var j = 0; j < nodesPayload[i].sensors.length; j++) {
+			for (var j = 0; j &lt; nodesPayload[i].sensors.length; j++) {
 				sum +=
 					nodesPayload[i].sensors[j].samples != null
 						? nodesPayload[i].sensors[j].samples.length
@@ -2305,3 +2333,26 @@ function getTotalSamplesFromNodes() {
 window.onload = function () {
 	doGetNodes();
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addSample">addSample</a></li><li><a href="global.html#addSamplesToSensor">addSamplesToSensor</a></li><li><a href="global.html#addSensorsToNodes">addSensorsToNodes</a></li><li><a href="global.html#calculateSamplesAverage">calculateSamplesAverage</a></li><li><a href="global.html#changeAvailability">changeAvailability</a></li><li><a href="global.html#countAvailableNodes">countAvailableNodes</a></li><li><a href="global.html#countAvailableSensors">countAvailableSensors</a></li><li><a href="global.html#countNodes">countNodes</a></li><li><a href="global.html#countSamples">countSamples</a></li><li><a href="global.html#countSensors">countSensors</a></li><li><a href="global.html#createAvailableBox">createAvailableBox</a></li><li><a href="global.html#createContextBox">createContextBox</a></li><li><a href="global.html#createDashboardNodesPlot">createDashboardNodesPlot</a></li><li><a href="global.html#createDashboardSensorsPlot">createDashboardSensorsPlot</a></li><li><a href="global.html#createLastSampleBox">createLastSampleBox</a></li><li><a href="global.html#createLastSampleTimeBox">createLastSampleTimeBox</a></li><li><a href="global.html#createNodeElement">createNodeElement</a></li><li><a href="global.html#createNodeIdBox">createNodeIdBox</a></li><li><a href="global.html#createNodeNameBox">createNodeNameBox</a></li><li><a href="global.html#createNodeScrollBar">createNodeScrollBar</a></li><li><a href="global.html#createPrecisionBox">createPrecisionBox</a></li><li><a href="global.html#createPropertyBox">createPropertyBox</a></li><li><a href="global.html#createSamplesAverageBox">createSamplesAverageBox</a></li><li><a href="global.html#createSamplesLinePlot">createSamplesLinePlot</a></li><li><a href="global.html#createSamplesLinePlotBox">createSamplesLinePlotBox</a></li><li><a href="global.html#createSampleTimeBox">createSampleTimeBox</a></li><li><a href="global.html#createSensorCodeBox">createSensorCodeBox</a></li><li><a href="global.html#createSensorElement">createSensorElement</a></li><li><a href="global.html#createTotalSamplesBox">createTotalSamplesBox</a></li><li><a href="global.html#createVM">createVM</a></li><li><a href="global.html#doGetNodes">doGetNodes</a></li><li><a href="global.html#doGetSamples">doGetSamples</a></li><li><a href="global.html#doGetSensors">doGetSensors</a></li><li><a href="global.html#editLinePlotButton">editLinePlotButton</a></li><li><a href="global.html#evaluateContext">evaluateContext</a></li><li><a href="global.html#findLastSample">findLastSample</a></li><li><a href="global.html#generateId">generateId</a></li><li><a href="global.html#getNodesBackgroundColors">getNodesBackgroundColors</a></li><li><a href="global.html#getNodeSensors">getNodeSensors</a></li><li><a href="global.html#getNodesName">getNodesName</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getSamplesTime">getSamplesTime</a></li><li><a href="global.html#getSamplesValue">getSamplesValue</a></li><li><a href="global.html#getSensorByCode">getSensorByCode</a></li><li><a href="global.html#getSensorSamples">getSensorSamples</a></li><li><a href="global.html#getSensorsBackgroundColors">getSensorsBackgroundColors</a></li><li><a href="global.html#getSensorsCode">getSensorsCode</a></li><li><a href="global.html#getTotalSamplesFromNodes">getTotalSamplesFromNodes</a></li><li><a href="global.html#getTotalSamplesFromSensors">getTotalSamplesFromSensors</a></li><li><a href="global.html#httpNodesUri">httpNodesUri</a></li><li><a href="global.html#isSensorKeyProperty">isSensorKeyProperty</a></li><li><a href="global.html#mapNodes">mapNodes</a></li><li><a href="global.html#mapSensors">mapSensors</a></li><li><a href="global.html#msToTime">msToTime</a></li><li><a href="global.html#prepareMessage">prepareMessage</a></li><li><a href="global.html#removeNodeScrollBar">removeNodeScrollBar</a></li><li><a href="global.html#sampleReceived">sampleReceived</a></li><li><a href="global.html#sendMessage">sendMessage</a></li><li><a href="global.html#swapToManageNodes">swapToManageNodes</a></li><li><a href="global.html#swapToManageSensors">swapToManageSensors</a></li><li><a href="global.html#swapToSensor">swapToSensor</a></li><li><a href="global.html#topicsDispatch">topicsDispatch</a></li><li><a href="global.html#updateAvailableBox">updateAvailableBox</a></li><li><a href="global.html#updateAvailableNodes">updateAvailableNodes</a></li><li><a href="global.html#updateAvailableSensors">updateAvailableSensors</a></li><li><a href="global.html#updateDashboardPlots">updateDashboardPlots</a></li><li><a href="global.html#updateLastSampleBox">updateLastSampleBox</a></li><li><a href="global.html#updateLastSampleTimeBox">updateLastSampleTimeBox</a></li><li><a href="global.html#updateNode">updateNode</a></li><li><a href="global.html#updateSamplesAverageBox">updateSamplesAverageBox</a></li><li><a href="global.html#updateSamplesLinePlotBox">updateSamplesLinePlotBox</a></li><li><a href="global.html#updateSampleTimeBox">updateSampleTimeBox</a></li><li><a href="global.html#updateSensor">updateSensor</a></li><li><a href="global.html#updateSensorInfo">updateSensorInfo</a></li><li><a href="global.html#updateTotalNodes">updateTotalNodes</a></li><li><a href="global.html#updateTotalSamples">updateTotalSamples</a></li><li><a href="global.html#updateTotalSamplesBox">updateTotalSamplesBox</a></li><li><a href="global.html#updateTotalSensors">updateTotalSensors</a></li><li><a href="global.html#wsConnect">wsConnect</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jul 07 2021 23:02:28 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
