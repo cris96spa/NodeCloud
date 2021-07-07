@@ -806,14 +806,21 @@ function addSample(sample) {
 	if (sensor) sensor.samples.push(sample);
 }
 
-/*Dynamic contents
- *******************************************************************************************************************/
+/*******************************************************************************************************************/
+
+//***** Management of dynamic elements *****
+/**
+ * Create the node scroll bar.
+ */
 function createNodeScrollBar() {
 	for (let i = 0; i < nodesPayload.length; i++) {
 		createNodeElement(nodesPayload[i]);
 	}
 }
 
+/**
+ * Remove the node scroll bar.
+ */
 function removeNodeScrollBar() {
 	const ul = document.getElementById('index-scrollbar-ul');
 	if (document.getElementById('nodes-label-sidebar'))
@@ -826,6 +833,10 @@ function removeNodeScrollBar() {
 	}
 }
 
+/**
+ * Create the node element of the list of nodes.
+ * @param {*} node the node to be added to the list
+ */
 function createNodeElement(node) {
 	var ul = document.getElementById('index-scrollbar-ul');
 	var listElement = document.createElement('li');
@@ -853,6 +864,11 @@ function createNodeElement(node) {
 	}
 }
 
+/**
+ * Create the sensor element of the list of sensors.
+ * @param {*} sensor the sensor to be added to the list
+ * @param {*} listElement the list of elements on which appending the sensor element.
+ */
 function createSensorElement(sensor, listElement) {
 	var ul = document.createElement('ul');
 	var li = document.createElement('li');
@@ -878,8 +894,11 @@ function createSensorElement(sensor, listElement) {
 
 /*******************************************************************************************************************/
 
-/*Sensor info
- ********************************************************************************************************************/
+//***** Management of Sensor information *****
+/**
+ * Go to the page of the given sensor.
+ * @param {*} sensor the sensor whose page must be shown.
+ */
 function swapToSensor(sensor) {
 	if (sensor) {
 		clearCoreFrame();
@@ -931,6 +950,11 @@ function swapToSensor(sensor) {
 	}
 }
 
+/**
+ * Create the box which contains the code.
+ * @param {*} code the element to be inserted in the box.
+ * @param {*} element the father element on which append the box.
+ */
 function createSensorCodeBox(code, element) {
 	var div = document.createElement('div');
 	div.className = 'col-md-6 col-xl-4';
@@ -969,6 +993,11 @@ function createSensorCodeBox(code, element) {
 	element.append(div);
 }
 
+/**
+ * Create the box which contains the nodeName.
+ * @param {*} nodeName the element to be inserted in the box.
+ * @param {*} element the father element on which append the box.
+ */
 function createNodeNameBox(nodeName, element) {
 	var div = document.createElement('div');
 	div.className = 'col-md-6 col-xl-4';
@@ -1007,6 +1036,11 @@ function createNodeNameBox(nodeName, element) {
 	element.append(div);
 }
 
+/**
+ * Create the box which contains the nodeId.
+ * @param {*} nodeId the element to be inserted in the box.
+ * @param {*} element the father element on which append the box.
+ */
 function createNodeIdBox(nodeId, element) {
 	var div = document.createElement('div');
 	div.className = 'col-md-6 col-xl-4';
@@ -1045,6 +1079,11 @@ function createNodeIdBox(nodeId, element) {
 	element.append(div);
 }
 
+/**
+ * Create the sample time box for the given sensor.
+ * @param {*} sensor the sensor on which create the time box.
+ * @param {*} element the father element on which append the box.
+ */
 function createSampleTimeBox(sensor, element) {
 	var div = document.createElement('div');
 	div.className = 'col-md-6 col-xl-4';
@@ -1086,6 +1125,10 @@ function createSampleTimeBox(sensor, element) {
 	element.append(div);
 }
 
+/**
+ * Update the sample time of the given sensor.
+ * @param {*} sensor the sensor on which updating the sample time
+ */
 function updateSampleTimeBox(sensor) {
 	var id = sensor.code + 'sample-time';
 	var box = document.getElementById(id);
@@ -1094,6 +1137,11 @@ function updateSampleTimeBox(sensor) {
 	}
 }
 
+/**
+ * Create a box for the precision property.
+ * @param {*} precision the precision to be inserted in the box.
+ * @param {*} element the father element on which append the box.
+ */
 function createPrecisionBox(precision, element) {
 	var div = document.createElement('div');
 	div.className = 'col-md-6 col-xl-4';
@@ -1133,6 +1181,12 @@ function createPrecisionBox(precision, element) {
 	element.append(div);
 }
 
+/**
+ * Create dinamically a box for a non-key property
+ * @param {*} propertyName the name of the property
+ * @param {*} property the property object
+ * @param {*} element the father element on which append the box.
+ */
 function createPropertyBox(propertyName, property, element) {
 	var div = document.createElement('div');
 	div.className = 'col-md-6 col-xl-4';
@@ -1168,6 +1222,11 @@ function createPropertyBox(propertyName, property, element) {
 	element.append(div);
 }
 
+/**
+ * Change the availability of the given sensor.
+ * It is sent a message to the Node-Red gateway.
+ * @param {*} sensor the sensor on which the availability must be changed.
+ */
 function changeAvailability(sensor) {
 	if (sensor) {
 		sensor.isAvailable = !sensor.isAvailable;
@@ -1177,6 +1236,10 @@ function changeAvailability(sensor) {
 	}
 }
 
+/**
+ * Update node info sending a message to the Node-Red gateway.
+ * @param {*} node the node to be updated.
+ */
 function updateNode(node) {
 	if (node) {
 		const topic = 'nodes/update';
@@ -1184,6 +1247,10 @@ function updateNode(node) {
 	}
 }
 
+/**
+ * Update sensor info sending a message to the Node-Red gateway.
+ * @param {*} sensor the sensor to be updated.
+ */
 function updateSensor(sensor) {
 	if (sensor) {
 		const topic = 'nodes/sensors/update';
@@ -1191,6 +1258,11 @@ function updateSensor(sensor) {
 	}
 }
 
+/**
+ * Create the availability box of the given sensor.
+ * @param {*} sensor the sensor on which creating the availability box.
+ * @param {*} element the father element on which append the box.
+ */
 function createAvailableBox(sensor, element) {
 	var div = document.createElement('div');
 	div.className = 'col-md-6 col-xl-4';
