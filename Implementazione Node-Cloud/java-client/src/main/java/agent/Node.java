@@ -17,7 +17,8 @@ import util.Constants;
 
 /**
  * A Node manage a collection of sensors
- * @author Cristian
+ * @author Daniele Carta
+ * @author Cristian C. Spagnuolo
  *
  */
 
@@ -65,7 +66,7 @@ public class Node implements Runnable{
 	
 	/**
 	 * Set Node ID
-	 * @param nodeID
+	 * @param nodeId
 	 */
 	public void setNodeId(String nodeId) {
 		this.nodeId = nodeId;
@@ -145,7 +146,7 @@ public class Node implements Runnable{
 	
 	/**
 	 * Set Longitude
-	 * @param latitude
+	 * @param longitude
 	 */
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
@@ -197,12 +198,12 @@ public class Node implements Runnable{
 	}
 
 	/**
-	 * Get Sensor by Code
-	 * @param code
+	 * Get Sensor by index
+	 * @param index
 	 * @return
 	 */
-	public Sensor getSensor(int i) {
-		return sensors.get(i);
+	public Sensor getSensor(int index) {
+		return sensors.get(index);
 	}
 	
 	/**
@@ -233,7 +234,8 @@ public class Node implements Runnable{
 
 	/**
 	 * Add property to node
-	 * @param sensor
+	 * @param key
+	 * @param obj
 	 */
 	public void putProperty(String key, Object obj) {
 		if(obj != null && properties != null && !properties.containsKey(key)) {
@@ -243,7 +245,7 @@ public class Node implements Runnable{
 	
 	/**
 	 * Remove Property from node
-	 * @param code
+	 * @param key
 	 */
 	public void removeProperty(String key) {
 		properties.remove(key);
@@ -272,7 +274,7 @@ public class Node implements Runnable{
 	
 	/**
 	 * Find a sensor by its sensor code.
-	 * @param sensorCode the sensor code of the sensor to be found.
+	 * @param code the sensor code of the sensor to be found.
 	 * @return the sensor with the given sensorCode.
 	 */
 	public Sensor findSensorByCode(String code) {

@@ -19,7 +19,7 @@ import com.google.gson.JsonParser;
 
 
 /**
- * A NodeManager manage each single Node, its sensors and the 
+ * A NodeManager manages each single Node, its sensors and the 
  * samples that are generated.
  * @author Daniele Carta
  * @author Cristian C. Spagnuolo
@@ -278,7 +278,7 @@ public class NodesManager {
 	
 	/**
 	 * Get the Map collection of nodes.
-	 * @return the Map<NodeId, Node> collection of nodes.
+	 * @return the Map collection of nodes.
 	 */
 	public Map<String, Node> getNodes() {
 		return nodes;
@@ -286,7 +286,7 @@ public class NodesManager {
 
 	/**
 	 * Set the Map collection of nodes.
-	 * @param nodes the Map<NodeId, Node> collection of nodes to be set.
+	 * @param nodes the Map collection of nodes to be set.
 	 */
 	public void setNodes(Map<String, Node> nodes) {
 		this.nodes = nodes;

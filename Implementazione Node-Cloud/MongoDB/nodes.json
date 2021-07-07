@@ -1,0 +1,41 @@
+[{
+  "_id": {
+    "$oid": "5d396aedb133d7279cf3d326"
+  },
+  "nodeId": "20210422122359",
+  "name": "Node 1",
+  "position": "Piazza della Signoria, 50122 FI",
+  "isAvailable": true,
+  "latitude": "41.111179",
+  "longitude": "14.787209"
+},{
+  "_id": {
+    "$oid": "5d396eeab133d7279cf3d32b"
+  },
+  "nodeId": "20210423100247",
+  "name": "Node 2",
+  "position": "Piazza Leonardo da Vinci, 20133 MI",
+  "isAvailable": true,
+  "latitude": "41.131446",
+  "longitude": "14.777509"
+},{
+  "_id": {
+    "$oid": "5d397029b133d7279cf3d32c"
+  },
+  "nodeId": "20210431125519",
+  "name": "Node 3",
+  "position": "Piazza del Duomo, 20122 MI",
+  "isAvailable": true,
+  "latitude": "45.464098",
+  "longitude": "9.191927"
+},{
+  "_id": {
+    "$oid": "5d397111b133d7279cf3d32d"
+  },
+  "nodeId": "20210422124040",
+  "name": "Node 4",
+  "position": "Piazza del Colosseo, 00184 RM",
+  "isAvailable": true,
+  "latitude": "41.066898",
+  "longitude": "14.745621"
+}]

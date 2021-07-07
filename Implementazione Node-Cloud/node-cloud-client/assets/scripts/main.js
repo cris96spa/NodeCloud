@@ -1,3 +1,7 @@
+/**
+ * This script is taken from a template.
+ * Nothing meaningful w.r.t. the logic of the project. 
+ */
 ! function(e) {
     var t = {};
 

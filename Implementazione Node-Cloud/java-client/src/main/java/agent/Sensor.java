@@ -29,7 +29,8 @@ import util.InvalidWindowException;
 
 /**
  * A Sensor perform a measure of a given a context
- * @author Cristian
+ * @author Daniele Carta
+ * @author Cristian C. Spagnuolo
  *
  */
 public class Sensor implements Runnable{
@@ -104,7 +105,7 @@ public class Sensor implements Runnable{
 
 	/**
 	 * Set Node ID
-	 * @param nodeID
+	 * @param nodeId
 	 */
 	public void setNodeId(String nodeId) {
 		this.nodeId = nodeId;
@@ -235,8 +236,9 @@ public class Sensor implements Runnable{
 	}
 
 	/**
-	 * Add property to node
-	 * @param sensor
+	 * Add property to sensor
+	 * @param key
+	 * @param obj
 	 */
 	public void putProperty(String key, Object obj) {
 		if(obj != null && properties != null && !properties.containsKey(key)) {
@@ -246,7 +248,7 @@ public class Sensor implements Runnable{
 	
 	/**
 	 * Remove Property from node
-	 * @param code
+	 * @param key
 	 */
 	public void removeProperty(String key) {
 		properties.remove(key);
@@ -292,7 +294,8 @@ public class Sensor implements Runnable{
 	
 	/**
 	 * Get samplesAverage from a specify set of Samples
-	 * @param window
+	 * @param base
+	 * @param limit
 	 * @return
 	 * @throws InvalidWindowException
 	 */

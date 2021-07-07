@@ -10,7 +10,8 @@ import util.Constants;
 
 /**
  * A Sample is a measurement  
- * @author Cristian
+ * @author Daniele Carta
+ * @author Cristian C. Spagnuolo
  *
  */
 public class Sample {

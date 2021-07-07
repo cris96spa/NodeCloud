@@ -1,0 +1,101 @@
+[{
+  "_id": {
+    "$oid": "5d4d1297e7b26d2630df9b9d"
+  },
+  "code": "HMD20210422123650",
+  "nodeId": "20210422122359",
+  "sampleTime": 25000,
+  "precision": "+/-1%",
+  "isAvailable": true,
+  "context": "Humidity"
+},{
+  "_id": {
+    "$oid": "5d4d1337a68a11263089a24b"
+  },
+  "code": "TMP20210422123201",
+  "nodeId": "20210422122359",
+  "sampleTime": 1000,
+  "precision": "+/-2°C",
+  "isAvailable": false,
+  "context": "Temperature"
+},{
+  "_id": {
+    "$oid": "5d4d1363a68a11263089a24c"
+  },
+  "code": "HMD20210420103044",
+  "nodeId": "20210423100247",
+  "sampleTime": 27000,
+  "precision": "+/-1.3%",
+  "isAvailable": true,
+  "context": "Humidity"
+},{
+  "_id": {
+    "$oid": "5d4d138ca68a11263089a24d"
+  },
+  "code": "TMP20210420102748",
+  "nodeId": "20210423100247",
+  "sampleTime": 167000,
+  "precision": "+/-1°C",
+  "isAvailable": true,
+  "context": "Temperature"
+},{
+  "_id": {
+    "$oid": "5d4d13bea68a11263089a24e"
+  },
+  "code": "HMD20210422125757",
+  "nodeId": "20210431125519",
+  "sampleTime": 26000,
+  "precision": "+/-1%",
+  "isAvailable": true,
+  "context": "Humidity"
+},{
+  "_id": {
+    "$oid": "5d4d13f2a68a11263089a24f"
+  },
+  "code": "TMP20210412125757",
+  "nodeId": "20210431125519",
+  "sampleTime": 77000,
+  "precision": "+/-0.3°C",
+  "isAvailable": true,
+  "context": "Temperature"
+},{
+  "_id": {
+    "$oid": "5d4d143ba68a11263089a250"
+  },
+  "code": "HMD20210422124446",
+  "nodeId": "20210422124040",
+  "sampleTime": 160000,
+  "precision": "+/-1.3%",
+  "isAvailable": true,
+  "context": "Humidity"
+},{
+  "_id": {
+    "$oid": "5d4d1483a68a11263089a251"
+  },
+  "code": "HMD20210422124614",
+  "nodeId": "20210422124040",
+  "sampleTime": 41000,
+  "precision": "+/-1.7%",
+  "isAvailable": false,
+  "context": "Humidity"
+},{
+  "_id": {
+    "$oid": "5d4d14b3a68a11263089a252"
+  },
+  "code": "TMP20210412124822",
+  "nodeId": "20210422124040",
+  "sampleTime": 137000,
+  "precision": "+/-2.2°C",
+  "isAvailable": true,
+  "context": "Temperature"
+},{
+  "_id": {
+    "$oid": "5d4d158aa68a11263089a253"
+  },
+  "code": "TMP20210420103123",
+  "nodeId": "20210423100247",
+  "sampleTime": 62000,
+  "precision": "+/-1°C",
+  "isAvailable": true,
+  "context": "Temperature"
+}]
