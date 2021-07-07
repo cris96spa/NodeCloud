@@ -1,3 +1,9 @@
+/**
+ * Management of the web client logic.
+ * @author Daniele Carta
+ * @author Cristian C. Spagnuolo
+ */
+
 let httpNodesUri = 'http://127.0.0.1:1880/node-cloud/nodes';
 let httpSensorsUri = 'http://127.0.0.1:1880/node-cloud/sensors';
 let httpSamplesUri = 'http://127.0.0.1:1880/node-cloud/samples';
