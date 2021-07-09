@@ -1,6 +1,6 @@
 Prima di effettuare l'import istallare i nodi per l'accesso al db di mongo db:
 
-Hamburger Button (Bottone alto destra) -->  Manage Palette -->  Install --> Copiare e incollare il seguente testo: "node-red-node-mongodb" --> install
+Hamburger Button (Bottone alto destra) -->  Manage Palette -->  Install --> Copiare e incollare il seguente testo: "node-red-contrib-mongodb3" --> install
 
 Per effettuare l'import dei nodi utilizzati
 Hamburger Button -->  Import -->  Import -->  Clipboard  (selezionare il file oppure incollare il contenuto del file)
