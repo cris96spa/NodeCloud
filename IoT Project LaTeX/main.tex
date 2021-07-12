@@ -34,7 +34,7 @@ In conclusione, saranno riportate alcune osservazioni finali sul lavoro svolto, 
 Node-Cloud è stato realizzato secondo un’architettura a multi-tier, figura \ref{fig:node-cloud-architecture}. L’idea di fondo di questo modello architetturale è quella di realizzare un’applicazione costituita da una serie di servizi indipendenti, ciascuno dei quali con scope molto specifico e limitato. 
 Diversi sono i vantaggi:
 \begin{itemize}
-    \item \textbf{Manutenibilità:} con la separazione e lo snellimento dei vari tier, operazioni di manu[]tenzione e aggiornamento sono rese più semplici. Ciò rende il sistema più flessibile e in grado di adattarsi ai cambiamenti dell’ambiente in cui è immerso. Inoltre, essendo l’accoppiamento ridotto al minimo, per la sostituzione di una componente è sufficiente che il servizio esponga la medesima interfaccia e implementi gli stessi meccanismi di comunicazione.
+    \item \textbf{Manutenibilità:} con la separazione e lo snellimento dei vari tier, operazioni di manutenzione e aggiornamento sono rese più semplici. Ciò rende il sistema più flessibile e in grado di adattarsi ai cambiamenti dell’ambiente in cui è immerso. Inoltre, essendo l’accoppiamento ridotto al minimo, per la sostituzione di una componente è sufficiente che il servizio esponga la medesima interfaccia e implementi gli stessi meccanismi di comunicazione.
     \item \textbf{Scalabilità:} fa riferimento alla possibilità di replicare ogni tier, anche su macchine diverse, per poter rispondere dinamicamente alle esigenze. La replicazione delle componenti, oltre a consentire la possibilità di gestire più richieste contemporaneamente, aumenta anche la tolleranza ai guasti. È tuttavia necessaria l’introduzione di un load balancer per poter distribuire equamente il carico tra le varie repliche.
     \item[] \textbf{Flessibilità del linguaggio di sviluppo:} essendo il sistema costituito da più componenti è possibile scegliere linguaggio di programmazione e framework più adatti a quel servizio. La ridefinizione di un tier o una sua eventuale migrazione di tecnologia non richiederà alcuna modifica alle componenti residue.
 \end{itemize}
@@ -53,10 +53,10 @@ Il core del sistema, implementato con Node-RED, è costituito da tre flussi di b
     \item recuperare i dati raccolti dai vari sensori, registrandosi agli appositi topic \emph{MQTT};
     \item gestire la comunicazione bidirezionale, real-time, implementata tramite \emph{WebSocket API}.
 \end{itemize}
-\paragraph{Database}
+\paragraph{Database.}
 L’accesso alla base di dati è mediato da Node-RED, in modo tale da garantire un maggiore disaccoppiamento dalle varie componenti. La scelta è stata guidata dal desiderio di realizzare un sistema schemaless per la rappresentazione delle informazioni. Piuttosto che utilizzare un tradizionale data base \emph{SQL} è stata preferita l’adozione di \emph{MongoDB}\footnote{https://www.mongodb.com/}.
 
-\paragraph{Sorgente Dati}
+\paragraph{Sorgente Dati.}
 Affinché un sistema di monitoraggio possa svolgere il suo lavoro è indispensabile la presenza di una sorgente che fornisca i dati da analizzare. Nel caso di Node-Cloud è stato implementato un client Java, figura \ref{fig:java-client-architecture}, che simula il raccoglimento delle informazioni. Sensori di natura diversa campionano a intervalli regolari il contesto in cui sono immersi. Ogni sensore è eseguito su un apposito nodo di elaborazione. Per una gestione migliore dei vari nodi è stato introdotto un manager. I suoi compiti prevedono:
 \begin{itemize}
     \item l’inizializzazione di nodi e sensori, recuperando le informazioni di configurazione necessarie tramite richieste HTTP;
@@ -71,7 +71,7 @@ Affinché un sistema di monitoraggio possa svolgere il suo lavoro è indispensab
 \end{figure}
 L’utilizzo del protocollo MQTT richiede la presenza di un broker. Svariate sono le soluzioni disponibili, tra esse si è optato per quella fornita dall’ \emph{Eclipse Project}\footnote{https://mqtt.eclipseprojects.io/}.
 \paragraph{Dashboard}
-\emph{Node-Cloud} è stato progettato per essere una web application. In aggiunta alla componente server, realizzata con Node-RED, è stato implementato, seguendo un approccio single-page application (SPA), un web client.
+\emph{Node-Cloud.} è stato progettato per essere una web application. In aggiunta alla componente server, realizzata con Node-RED, è stato implementato, seguendo un approccio single-page application (SPA), un web client.
 
 La dashboard di Node-Cloud presenta una serie di indicatori che consentono di avere una panoramica generale sull’andamento dei nodi e dei sensori. In fase di caricamento vengono effettuate tre richieste asincrone di tipo HTTP agli end-point implementati con Node-RED. Sarà compito del server accedere alle collezioni del database restituendo al client, in formato JSON, le informazioni di configurazione. Il contenuto delle richieste verrà utilizzato per inizializzare indicatori e grafici. È importante sottolineare come, in linea con il modello SPA, le richieste esplicite avvengano solo in questa fase.
 
